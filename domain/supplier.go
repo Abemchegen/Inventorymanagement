@@ -9,3 +9,15 @@ type Supplier struct {
 	Address       string `json:"address" bson:"address"`                         // Supplier's address
 	PricingInfo   string `json:"pricing_information" bson:"pricing_information"` // Pricing details
 }
+
+type SupplierUseCase interface {
+	GetSupplierByID(id string) (*Supplier, error)
+	CreateSupplier(supplier *Supplier) error
+	GetAllSuppliers() ([]Supplier, error)
+}
+
+type SupplierRepository interface {
+	FindByID(id string) (*Supplier, error)
+	FindAll() ([]Supplier, error)
+	Store(supplier *Supplier) error
+}

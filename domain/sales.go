@@ -16,3 +16,15 @@ type SalesItem struct {
 	Quantity  int     `json:"quantity" bson:"quantity"`     // Quantity sold
 	Price     float64 `json:"price" bson:"price"`           // Unit price of the product
 }
+
+type SalesUseCase interface {
+	GetSalesByID(id string) (*Sales, error)
+	CreateSales(sales *Sales) error
+	GetAllSales() ([]Sales, error)
+}
+
+type SalesRepository interface {
+	FindByID(id string) (*Sales, error)
+	FindAll() ([]Sales, error)
+	Store(sales *Sales) error
+}
