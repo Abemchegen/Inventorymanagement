@@ -20,11 +20,13 @@ func NewJWTService(secretKey string) *JWTService {
 }
 
 // GenerateToken generates a JWT token for the given username.
-func (j *JWTService) GenerateToken(username string) (string, error) {
+func (j *JWTService) GenerateToken(id, string, email string, role string) (string, error) {
 	// Create a new JWT token with claims
 	claims := jwt.MapClaims{
-		"username": username,
-		"exp":      time.Now().Add(time.Hour * 24).Unix(), // Expiry time: 24 hours
+		"userid": id,
+		"email":  email,
+		"role":   role,
+		"exp":    time.Now().Add(time.Hour * 24).Unix(), // Expiry time: 24 hours
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 
@@ -38,7 +40,7 @@ func (j *JWTService) GenerateToken(username string) (string, error) {
 }
 
 // ValidateToken validates the JWT token and returns the username from it.
-func (j *JWTService) ValidateToken(tokenString string) (string, error) {
+func (j *JWTService) ValidateToken(tokenString string) (jwt.MapClaims, error) {
 	// Parse and validate the token
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		// Ensure the token's signing method is correct
@@ -51,15 +53,13 @@ func (j *JWTService) ValidateToken(tokenString string) (string, error) {
 
 	if err != nil {
 		log.Printf("Error validating token: %v", err)
-		return "", err
+		return nil, err
 	}
 
 	// Extract claims
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-		if username, ok := claims["username"].(string); ok {
-			return username, nil
-		}
+		return claims, nil
 	}
 
-	return "", errors.New("invalid token claims")
+	return nil, errors.New("invalid token claims")
 }
