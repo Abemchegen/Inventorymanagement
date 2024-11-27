@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	"coeffee/domain"
+	"inventory/domain"
 	"fmt"
 
 	"github.com/gin-gonic/gin"

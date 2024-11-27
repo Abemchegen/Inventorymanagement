@@ -1,7 +1,7 @@
 package usecase
 
 import (
-	"coeffee/domain"
+	"inventory/domain"
 	"strings"
 	"time"
 )

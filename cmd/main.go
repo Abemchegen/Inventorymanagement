@@ -1,8 +1,8 @@
 package main
 
 import (
-	"coeffee/config"
-	"coeffee/delivery/routers"
+	"inventory/config"
+	"inventory/delivery/routers"
 	"fmt"
 
 	"github.com/gin-contrib/cors"

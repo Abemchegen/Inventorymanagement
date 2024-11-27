@@ -1,11 +1,11 @@
 package routers
 
 import (
-	"coeffee/config"
-	"coeffee/delivery/controllers"
-	"coeffee/infrastracture"
-	"coeffee/repository"
-	"coeffee/usecase"
+	"inventory/config"
+	"inventory/delivery/controllers"
+	"inventory/infrastracture"
+	"inventory/repository"
+	"inventory/usecase"
 	"time"
 
 	"github.com/gin-gonic/gin"

@@ -1,8 +1,8 @@
 package infrastracture
 
 import (
-	"coeffee/config"
-	"coeffee/domain"
+	"inventory/config"
+	"inventory/domain"
 	"fmt"
 
 	"github.com/golang-jwt/jwt"

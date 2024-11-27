@@ -1,7 +1,7 @@
 package infrastracture
 
 import (
-	"coeffee/config"
+	"inventory/config"
 	"fmt"
 	"net/http"
 	"strings"

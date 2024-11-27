@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"coeffee/domain"
+	"inventory/domain"
 	"context"
 	"fmt"
 	"time"
