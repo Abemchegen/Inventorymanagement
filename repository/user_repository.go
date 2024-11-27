@@ -137,18 +137,6 @@ func (repo *userRepository) UpdateProfile(id string, user domain.User) (domain.U
 
 
 
-func (ur *userRepository) AddDriver(user domain.User) (domain.User, error) {
-	ctx := context.Background()
-
-	_, err := ur.database.Collection(ur.collection).InsertOne(ctx, user)
-	if err != nil {
-		return domain.User{}, err
-
-}
-	return user, nil
-}
-
-
 func (ur *userRepository) GetAllUser() ([]domain.User, error) {
 	ctx := context.Background()
 	var users []domain.User

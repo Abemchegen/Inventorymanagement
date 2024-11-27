@@ -2,11 +2,8 @@ package usecase
 
 import (
 	"coeffee/domain"
-	"fmt"
 	"strings"
 	"time"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type UserUseCase struct {
@@ -98,27 +95,13 @@ func (uc *UserUseCase) UpdateProfile(id string, user domain.User) (domain.User, 
 	_, err := uc.UserRepository.UpdateProfile(id, user)
 
 	if err != nil {
-		fmt.Println(err.Error(), "*****************")
+	
 		return domain.User{}, domain.ErrorResponse{Message: "Failed to update user", Status: 500}
 	}
 
 	return user, domain.ErrorResponse{}
 }
 
-
-func (uc *UserUseCase) AddDriver(user domain.User) (domain.User, domain.ErrorResponse) {
-	user.Role = strings.ToLower(user.Role)
-	
-	user.ID = primitive.NewObjectID()
-
-	_, err := uc.UserRepository.AddDriver(user)
-
-	if err != nil {
-		return domain.User{}, domain.ErrorResponse{Message: "Failed to create driver", Status: 500}
-	}
-
-	return user, domain.ErrorResponse{}
-}
 
 
 func (uc *UserUseCase) GetAllUser() ([]domain.User,error) {

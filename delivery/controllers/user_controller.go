@@ -99,28 +99,6 @@ func (uc *UserController) UpdateProfile(c *gin.Context) {
 	c.JSON(200, gin.H{"data": result})
 }
 
-func (uc *UserController) AddDriver(c *gin.Context) {
-	var user domain.User
-	
-
-	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
-		return
-	}
-
-	result, err := uc.UserUsecase.AddDriver(user)
-
-	if err.Message != "" {
-		c.JSON(400, gin.H{
-			"status": err.Status,
-			"message": err.Message,
-		})
-		return
-	}
-
-	c.JSON(200, gin.H{"data": result})
-
-}
 
 
 func (uc *UserController) GetAllUser(c *gin.Context) {

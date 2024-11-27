@@ -27,7 +27,6 @@ func NewUserRouter(route *gin.RouterGroup, config *config.Config, DB mongo.Datab
 	usecase := usecase.NewUserUseCase(repo , timeout, tokenGen, passwordSvc)
 
 
-	
 
 
 	userController := controllers.NewUserController(usecase)
@@ -39,7 +38,6 @@ func NewUserRouter(route *gin.RouterGroup, config *config.Config, DB mongo.Datab
 		user.Use(infrastracture.AuthMiddleware())
 		user.POST("/ID", userController.GetByID)
 		user.POST("/updateProfile", userController.UpdateProfile)
-		user.POST("/add-driver" , userController.AddDriver)
 		
 		user.GET("/get-all", userController.GetAllUser)
 		user.GET("/me" , userController.GetMe)
