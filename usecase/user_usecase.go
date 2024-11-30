@@ -56,7 +56,6 @@ func (uc *UserUseCase) Login(newUser domain.User) (domain.LoginSucessResponse, d
 	}
 	
 
-	// fmt.Println(user.Password , newUser.Password , "**************************")
 
 	match := uc.PasswordSvc.CheckPasswordHash( newUser.Password, user.Password)
 

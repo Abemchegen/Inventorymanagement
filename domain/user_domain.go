@@ -2,7 +2,6 @@ package domain
 
 import (
 	"context"
-	"time"
 
 	"github.com/golang-jwt/jwt"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -20,20 +19,15 @@ type User struct {
 	ID primitive.ObjectID `bson:"_id,omitempity" json:"id" `
 	Name string `bson:"name" json:"name"`
 	Email string `bson:"email" json:"email"`
-	Password string `bson:"password" json:"password"`
+	Password string `bson:"password" json:"-"`
 	Role string `bson:"role" json:"role"`
-	PhoneNumber string `bson:"phone_number" json:"phone_number"`
-	Address string `bson:"address" json:"address"`
-	CreatedAt	time.Time `bson:"created_at" json:"created_at"`
-	UpdatedAt time.Time`bson:"updated_at" json:"updated_at"`
+	// PhoneNumber string `bson:"phone_number" json:"phone_number"`
+	// Address string `bson:"address" json:"address"`
+	// CreatedAt	time.Time `bson:"created_at" json:"created_at"`
+	// UpdatedAt time.Time`bson:"updated_at" json:"updated_at"`
 
 	Image string `bson:"image" json:"image"`
 
-	// Notifications
-	// Notifications []Notification `bson:"notifications" json:"notifications"`
-	OrderConfirmation bool `bson:"order_confirmation" json:"order_confirmation"`
-	OrderStatusConfirmation bool `bson:"order_status" json:"order_status"`
-	EmailNotification bool `bson:"email_notification" json:"email_notification"`
 
 
 }
@@ -83,8 +77,6 @@ type UserRepository interface {
 	UpdateProfile(id string, user User) (User, error)
 
 	GetAllUser() ([]User, error)
-
-
 	GetUserByID(ctx context.Context ,id string) (User, error)
 	
 }

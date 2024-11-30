@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"inventory/domain"
 	"context"
 	"fmt"
+	"inventory/domain"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
@@ -102,12 +102,12 @@ func (repo *userRepository) UpdateProfile(id string, user domain.User) (domain.U
 	if user.Role != "" {
 		updateFields["role"] = user.Role
 	}
-	if user.PhoneNumber != "" {
-		updateFields["phone_number"] = user.PhoneNumber
-	}
-	if user.Address != "" {
-		updateFields["address"] = user.Address
-	}
+	// if user.PhoneNumber != "" {
+	// 	updateFields["phone_number"] = user.PhoneNumber
+	// }
+	// if user.Address != "" {
+	// 	updateFields["address"] = user.Address
+	// }
 	// Add other fields you want to update conditionally
 
 	// Check if there are any fields to update

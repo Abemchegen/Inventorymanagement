@@ -1,14 +1,8 @@
 package infrastracture
 
 import (
-	"crypto/rand"
-	"crypto/sha256"
-	"encoding/hex"
-	"fmt"
 	"regexp"
 	"unicode"
-
-	"gopkg.in/gomail.v2"
 )
 
 func IsValidEmail(email string) bool {
@@ -45,77 +39,4 @@ func IsValidPassword(password string) bool {
 	}
 
 	return hasMinLen && hasUpper && hasLower && hasNumber && hasSpecial
-}
-
-
-func SendActivationEmail(email, token string) error {
-	m := gomail.NewMessage()
-	m.SetHeader("From", "bereket.meng@gmail.com")
-	m.SetHeader("To", email)
-	m.SetHeader("Subject", "Account Activation")
-
-
-	m.SetBody("text/html", fmt.Sprintf("Click <a href=\"http://localhost:8080/users/verify-email?email=%s&token=%s\">here</a> to activate your account.", email, token))
-
-
-	d := gomail.NewDialer("smtp.gmail.com", 587, "bereket.meng@gmail.com", "xjbs vduu hkjd lqlf")
-
-	
-	if err := d.DialAndSend(m); err != nil {
-		return err
-	}
-	return nil
-}
-
-
-func GenerateOTP() (string, error) {
-	digits := "0123456789"
-	var otp string
-	for i := 0; i < 6; i++ {
-		randomByte := make([]byte, 1)
-		_, err := rand.Read(randomByte)
-		if err != nil {
-			return "", err
-		}
-		randomByte[0] = randomByte[0] % byte(len(digits))
-		otp += string(digits[randomByte[0]])
-	}
-	return otp, nil
-}
-
-func GenerateActivationToken() (string, error) {
-	// Create a 32-byte random token
-	token := make([]byte, 32)
-	_, err := rand.Read(token)
-	if err != nil {
-		return "", err
-	}
-
-	// Convert the token to a hex string
-	return hex.EncodeToString(token), nil
-}
-
-func GenerateDeviceFingerprint(ip, userAgent string) string {
-    data := ip + userAgent
-    hash := sha256.Sum256([]byte(data))
-    return hex.EncodeToString(hash[:])
-}
-
-func SendResetLink(email, token string) error {
-	m := gomail.NewMessage()
-	m.SetHeader("From", "bereket.meng@gmail.com")
-	m.SetHeader("To", email)
-	m.SetHeader("Subject", "Password Reset Link")
-
-
-	m.SetBody("text/html", fmt.Sprintf("Click <a href=\"http://127.0.0.1:8080/users/reset-password/%s\">here</a> to reset your password.", token))
-
-
-	d := gomail.NewDialer("smtp.gmail.com", 587, "bereket.meng@gmail.com", "xjbs vduu hkjd lqlf")
-
-	
-	if err := d.DialAndSend(m); err != nil {
-		return err
-	}
-	return nil
 }

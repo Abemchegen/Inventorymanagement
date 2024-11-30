@@ -28,8 +28,7 @@ func (tg *TokenGeneratorImpl) GenerateToken(user domain.User) (string, error) {
 	claims := domain.JwtCustomClaims{
 		UserID:      user.ID.Hex(),
 		Role:        user.Role,
-		Name:    user.Name,
-		
+		Name:    	user.Name,
 	}
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)

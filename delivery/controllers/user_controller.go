@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"inventory/domain"
 	"fmt"
+	"inventory/domain"
 
 	"github.com/gin-gonic/gin"
 )
@@ -33,7 +33,10 @@ func(uc *UserController) CreateAccount(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(200, gin.H{"data": result})
+	c.JSON(200, gin.H{
+		"status": 200,
+		"message": "Account created successfully",
+		"data": result})
 }
 
 
@@ -56,7 +59,11 @@ func(uc *UserController) Login(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"data": result})
+	c.JSON(200, gin.H{
+		"status": 200,
+		"message": "Login successful",
+		
+		"data": result})
 }
 
 func(uc *UserController) GetByID(c *gin.Context) {
@@ -72,7 +79,11 @@ func(uc *UserController) GetByID(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"data": result})
+	c.JSON(200, gin.H{
+		"status": 200,
+		"message": "User found",
+		
+		"data": result})
 }
 
 func (uc *UserController) UpdateProfile(c *gin.Context) {
@@ -96,7 +107,11 @@ func (uc *UserController) UpdateProfile(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"data": result})
+	c.JSON(200, gin.H{
+		"status": 200,
+		"message": "Profile updated successfully",
+		
+		"data": result})
 }
 
 
@@ -113,7 +128,6 @@ func (uc *UserController) GetAllUser(c *gin.Context) {
 
 func (uc *UserController) GetMe(c *gin.Context) {
 	userID := c.GetString("user_id")
-	fmt.Println(userID , "********************************")
 	result , err := uc.UserUsecase.GetUserByID(userID)
 
 	
@@ -125,97 +139,13 @@ func (uc *UserController) GetMe(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, gin.H{"user": result})
+	c.JSON(200, gin.H{
+		
+		"status": 200,
+		"message": "User found",
+		"user": result})
 
 	
 }
-
-
-// // create a user 
-// func (uc *UserController) CreateUser( c *gin.Context) {
-// 	var user domain.UserRegister
-	
-// 	if err := c.ShouldBindJSON(&user); err != nil {
-// 		c.JSON(400, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	result := uc.UserUsecase.CreateUser(user)
-
-// 	HandleResponse(c, result)
-
-// }
-
-// // login a user
-
-// func (uc *UserController) Login(c *gin.Context) {
-// 	var user domain.UserLogin
-
-// 	if err := c.ShouldBindJSON(&user); err != nil {
-// 		c.JSON(400, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	result := uc.UserUsecase.Login(user)
-
-// 	HandleResponse(c, result)
-// }
-
-// // create a farmer
-
-// func (uc *UserController) CreateFarmer(c *gin.Context) {
-// 	var user domain.UserRegister
-
-// 	// get the current logged in user id from the context
-
-// 	adminID := c.GetString("userID")
-
-// 	if err := c.ShouldBindJSON(&user); err != nil {
-// 		c.JSON(400, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	result := uc.UserUsecase.CreateFarmer(adminID , user)
-
-// 	HandleResponse(c, result)
-// }
-
-// // // create a driver
-
-// func (uc *UserController) CreateDriver(c *gin.Context) {
-// 	var user domain.UserRegister
-
-// 	adminID := c.GetString("userID")
-// 	if err := c.ShouldBindJSON(&user); err != nil {
-// 		c.JSON(400, gin.H{"error": err.Error()})
-// 		return
-// 	}
-
-// 	result := uc.UserUsecase.CreateDriver(adminID, user)
-
-// 	HandleResponse(c, result)
-// }
-
-
-
-// func (uc *UserController) GetAllUser(c *gin.Context) {
-// 	AdminID := c.GetString("userID")
-
-// 	// check if the user is an admin before getting all the users
-// 	result := uc.UserUsecase.GetAllUser(AdminID)
-
-// 	HandleResponse(c, result)
-
-
-// }
-
-// func (uc *UserController) GetUserByID(c *gin.Context) {
-// 	id := c.Param("id")
-
-// 	result := uc.UserUsecase.GetUserByID(id)
-
-// 	HandleResponse(c, result)
-// }
-
 
 

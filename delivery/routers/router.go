@@ -10,8 +10,10 @@ import (
 func Router(route *gin.RouterGroup, config *config.Config, DB mongo.Database) {
 
 	NewUserRouter(route , config, DB)
-	// NewProductRouter(route , config, DB)
-	// NewOrderRouter(route , config, DB)
-	// NewTransactionRouter(route , config, DB)
-	// NewForumRouter(route , config, DB)
+	NewProductRouter(route , config, DB)
+	NewOrderRouter(route , config, DB)
+	NewSupplierRouter(route , config, DB)
+	NewReportRouter(route , config, DB)
+	NewStoreRouter(route , config, DB)
+
 }

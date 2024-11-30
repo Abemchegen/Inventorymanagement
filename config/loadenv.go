@@ -20,13 +20,9 @@ type Config struct {
 	RefreshTokenExpiryHour   int
 	AccessTokenSecret        string
 	RefreshTokenSecret       string
-	NotificationCollection   string
-
-
-
-	TransactionCollection string
-	ReplyCollection		  	string
-	BlogCollection			string
+	SellerCollection			string
+	StoreCollection			string
+	ReportCollection			string
 }
 
 func LoadEnv() (*Config, error) {
@@ -43,15 +39,15 @@ func LoadEnv() (*Config, error) {
 	orderColl := os.Getenv("order_collection")
 	productColl := os.Getenv("product_collection")
 	contextTimeoutStr := os.Getenv("CONTEXT_TIMEOUT")
-	notifycoll := os.Getenv("notification_collection")
-	replycoll := os.Getenv("reply_collection")
-	blogcoll := os.Getenv("blog_collection")
 	accessTokenExpiryHourStr := os.Getenv("ACCESS_TOKEN_EXPIRY_HOUR")
 	refreshTokenExpiryHourStr := os.Getenv("REFRESH_TOKEN_EXPIRY_HOUR")
 	accessTokenSecret := os.Getenv("ACCESS_TOKEN_SECRET")
 	refreshTokenSecret := os.Getenv("REFRESH_TOKEN_SECRET")
-	transcoll := os.Getenv("Transaction_collection")
+
 	port, err := strconv.Atoi(portStr)
+	sellerColl := os.Getenv("Sellers_collection")
+	storesColl := os.Getenv("Store_collection")
+	reportColl := os.Getenv("Report_collection")
 
 	if err != nil {
 		log.Fatal("Invalid PORT value")
@@ -80,19 +76,18 @@ func LoadEnv() (*Config, error) {
 		DatabaseUrl:            dbURL,
 		Port:                   port,
 		DbName:                 dbname,
-		UserCollection:         usercoll,
-		OrderCollection:         orderColl,
-		ProductCollection:		productColl,
 		ContextTimeout:         contextTimeout,
 		AccessTokenExpiryHour:  accessTokenExpiryHour,
 		RefreshTokenExpiryHour: refreshTokenExpiryHour,
 		AccessTokenSecret:      accessTokenSecret,
 		RefreshTokenSecret:     refreshTokenSecret,
-		NotificationCollection: notifycoll,
-
-		TransactionCollection: transcoll,
-		ReplyCollection:		replycoll,
-		BlogCollection:			blogcoll,
+		
+		UserCollection:         usercoll,
+		OrderCollection:         orderColl,
+		ProductCollection:		productColl,
+		SellerCollection:		sellerColl,
+		StoreCollection:		storesColl,
+		ReportCollection:		reportColl,
 	}
 
 	return config, nil
